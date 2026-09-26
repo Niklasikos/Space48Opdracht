@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4577338927947959306}
   - component: {fileID: 8794260304170220016}
   - component: {fileID: 896679031009646393}
+  - component: {fileID: -4140695949384930741}
   m_Layer: 0
   m_Name: ship
   m_TagString: Untagged
@@ -83,6 +84,21 @@ MonoBehaviour:
   cooldownTime: 1
   itemImageHolder: {fileID: 0}
   introductionField: {fileID: 0}
+  messageField: {fileID: 0}
+--- !u!114 &-4140695949384930741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708252833709529029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10eee39b9a29a7942a8482f019c43c6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Movement
+  moveSpeed: 5
+  useInput: 1
 --- !u!1001 &9044626916692821676
 PrefabInstance:
   m_ObjectHideFlags: 0

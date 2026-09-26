@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class ShipBehaviour : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float rotationSpeed = 25f;
     [SerializeField] private GameObject laserPrefab;
     [SerializeField] private float cooldownTime = 3f;
@@ -15,6 +14,7 @@ public class ShipBehaviour : MonoBehaviour
     [SerializeField] private TMP_Text introductionField;
     [SerializeField] private TMP_Text messageField;
 
+    private Movement movement;
     private float cooldownCounter = 0f;
     private List<Color> items = new List<Color>();
     private int activeItemIndex = -1;
@@ -22,13 +22,12 @@ public class ShipBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        movement = GetComponent<Movement>();
         StartCoroutine(Introduction());
     }
     IEnumerator Introduction() { 
-        introductionField.enabled = true;
-        introductionField.text = "Welcome to Space 4 8. \n Move your ship with the arrows or WASD. \n Shoot with SPACE. \n Gather pickups and cycle with 'Left CTR'.  \n  Use pickups with 'E'.";
-        yield return new WaitForSeconds(5f);
-        introductionField.enabled = false;
+        StartCoroutine(ShowMessage("Welcome to Space 4 8. \n Move your ship with the arrows or WASD. \n Shoot with SPACE. \n Gather pickups and cycle with 'Left CTR'.  \n  Use pickups with 'E'."));
+        yield return null;
     }
     IEnumerator ShowMessage(string message) {
         messageField.enabled = true;
@@ -39,18 +38,10 @@ public class ShipBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();   
         Rotate();
         Shoot();
         CycleItems();
         UseItem();
-
-    }
-
-    void Move() {
-
-        transform.position = transform.position + transform.forward * moveSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
-        
     }
     void Rotate()
     {
@@ -122,7 +113,7 @@ public class ShipBehaviour : MonoBehaviour
 
             if (items[activeItemIndex] == Color.blue) {
                 StartCoroutine(ShowMessage(" +  Move Speed"));
-                moveSpeed += 5;
+                movement.moveSpeed += 5;
             }
             else if (items[activeItemIndex] == Color.red){
                 StartCoroutine(ShowMessage(" + Fire Rate"));
