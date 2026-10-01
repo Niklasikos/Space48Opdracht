@@ -2,4 +2,4 @@
 
 >![Gif](/4A.gif)
 
-### Movement.cs zit [hier](/Assets/Scripts/Movement.cs)
+### Scripts zitten [hier](/Assets/Scripts)

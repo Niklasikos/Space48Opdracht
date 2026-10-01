@@ -1,21 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ShipBehaviour : MonoBehaviour
 {
-    [SerializeField] private float rotationSpeed = 25f;
-    [SerializeField] private GameObject laserPrefab;
-    [SerializeField] private float cooldownTime = 3f;
     [SerializeField] private Image itemImageHolder;
-    [SerializeField] private TMP_Text introductionField;
-    [SerializeField] private TMP_Text messageField;
 
     private Movement movement;
-    private float cooldownCounter = 0f;
+    private Shoot shoot;
+    private Messages messages;
     private List<Color> items = new List<Color>();
     private int activeItemIndex = -1;
 
@@ -23,45 +16,14 @@ public class ShipBehaviour : MonoBehaviour
     void Start()
     {
         movement = GetComponent<Movement>();
-        StartCoroutine(Introduction());
+        shoot = GetComponent<Shoot>();
+        messages = GetComponent<Messages>();
     }
-    IEnumerator Introduction() { 
-        StartCoroutine(ShowMessage("Welcome to Space 4 8. \n Move your ship with the arrows or WASD. \n Shoot with SPACE. \n Gather pickups and cycle with 'Left CTR'.  \n  Use pickups with 'E'."));
-        yield return null;
-    }
-    IEnumerator ShowMessage(string message) {
-        messageField.enabled = true;
-        messageField.text = message;
-        yield return new WaitForSeconds(3f);
-        messageField.enabled = false;
-    }
-    // Update is called once per frame
+
     void Update()
     {
-        Rotate();
-        Shoot();
         CycleItems();
         UseItem();
-    }
-    void Rotate()
-    {
-        transform.Rotate(transform.up * rotationSpeed * Time.deltaTime * Input.GetAxis("Horizontal"));
-    }
-    void Shoot() { 
-        cooldownCounter += Time.deltaTime;
-
-        if(Input.GetKeyDown(KeyCode.Space) && cooldownCounter > cooldownTime)
-        {
-            GameObject laser = Instantiate(laserPrefab);
-            laser.transform.position = transform.position;
-            laser.transform.rotation = transform.rotation;
-            Destroy(laser, 3f);
-
-            cooldownCounter = 0f;
-
-        }
-
-        
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -112,16 +74,16 @@ public class ShipBehaviour : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) && items.Count > 0 && activeItemIndex != -1) {
 
             if (items[activeItemIndex] == Color.blue) {
-                StartCoroutine(ShowMessage(" +  Move Speed"));
+                StartCoroutine(messages.ShowMessage(" +  Move Speed"));
                 movement.moveSpeed += 5;
             }
             else if (items[activeItemIndex] == Color.red){
-                StartCoroutine(ShowMessage(" + Fire Rate"));
-                cooldownTime -= 0.1f;
+                StartCoroutine(messages.ShowMessage(" + Fire Rate"));
+                shoot.cooldownTime -= 0.1f;
             }
             else if(items[activeItemIndex] == Color.green){
-                StartCoroutine(ShowMessage(" + Rotation Speed"));
-                rotationSpeed += 10;
+                StartCoroutine(messages.ShowMessage(" + Rotation Speed"));
+                movement.rotationSpeed += 20;
             }      
             items.RemoveAt(activeItemIndex);            
             if (activeItemIndex > 0)

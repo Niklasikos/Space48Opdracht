@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 8794260304170220016}
   - component: {fileID: 896679031009646393}
   - component: {fileID: -4140695949384930741}
+  - component: {fileID: 5788222187634977627}
+  - component: {fileID: 102024586464188384}
   m_Layer: 0
   m_Name: ship
   m_TagString: Untagged
@@ -77,14 +79,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac6b3e848a97c4408e56d54b2707a84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rotationSpeed: 250
-  laserPrefab: {fileID: 6296192066327028313, guid: fb1761f4ca56baf4184f207a50c08d0a,
-    type: 3}
-  cooldownTime: 1
   itemImageHolder: {fileID: 0}
-  introductionField: {fileID: 0}
-  messageField: {fileID: 0}
 --- !u!114 &-4140695949384930741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,8 +92,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10eee39b9a29a7942a8482f019c43c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Movement
-  moveSpeed: 5
+  rotationSpeed: 100
+  moveSpeed: 20
   useInput: 1
+--- !u!114 &5788222187634977627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708252833709529029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 836310ff326b5754eb630754eb9b77d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Shoot
+  laserPrefab: {fileID: 6296192066327028313, guid: fb1761f4ca56baf4184f207a50c08d0a,
+    type: 3}
+  cooldownTime: 3
+--- !u!114 &102024586464188384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708252833709529029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f5aa04d283ff5e4d97527822c3b590e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Messages
+  introductionField: {fileID: 0}
+  messageField: {fileID: 0}
 --- !u!1001 &9044626916692821676
 PrefabInstance:
   m_ObjectHideFlags: 0
